@@ -9,7 +9,7 @@ MAX_BITS = 8
 MIN_DECIMATION = 1
 MAX_DECIMATION = 10
 
-PATH_TO_IMAGES_FOLDER = '../database-Crosswalk/Orignal/'
+PATH_TO_IMAGES_FOLDER = '../database-Crosswalk/Preprocessed/'
 PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_01/'
 
 for nbits in range(MIN_BITS, MAX_BITS + 1):
