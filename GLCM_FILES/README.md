@@ -15,3 +15,12 @@ The File as named like FEATURES_M{}_CM{}b.txt when
     When the value is 8, the image must be values between 0 and 255
     When the value is 7, the image must be values between 0 and 127
     CM value has changed between 2 and 8
+
+
+
+
+## Authors
+
+* **Lucas Costa** - [lukkascost](https://github.com/lukkascost)
+
+See also the list of [contributors](https://github.com/lukkascost/py_Crosswalk/contributors) who participated in this project.
