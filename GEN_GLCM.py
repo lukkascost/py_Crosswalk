@@ -42,5 +42,5 @@ for nbits in range(MIN_BITS, MAX_BITS + 1):
         listGLCM = np.array(listGLCM)
 
         """ SAVE FILE WITH FEATURES, DECIMATION WITH STEP = k AND CORRELATION MATRIX WITH nbits BITS. """
-        np.savetxt(+PATH_TO_SAVE_FEATURES + "FEATURES_M{}_CM{}b.txt".format(k, nbits), listGLCM, fmt="%s",
+        np.savetxt(PATH_TO_SAVE_FEATURES + "FEATURES_M{}_CM{}b.txt".format(k, nbits), listGLCM, fmt="%s",
                    delimiter=',')
