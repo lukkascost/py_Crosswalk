@@ -1,5 +1,6 @@
 # Machine learn tests for Embedded platform to crosswalk detection.
 
+
 ## File: GEN_GLCM.py
 
 This file generate files with features using GLCM extractor.
@@ -22,7 +23,7 @@ Variables:
  - MAX and Min Decimation: means the minimum and maximum values of steps in line and cols of image to generate an smallest image.
  - PATH_TO_IMAGES_FOLDER: Path to folder with images to extract features.
  - PATH_TO_SAVE_FEATURES: Path to folder where will be save result of features extraction.
- 
+--- 
 
 ## File: GEN_GLCM_PREPROCESS.py
 
@@ -47,6 +48,7 @@ Variables:
  - PATH_TO_IMAGES_FOLDER: Path to folder with images to extract features.
  - PATH_TO_SAVE_FEATURES: Path to folder where will be save result of features extraction.
  
+ ---
  
 ## Authors
 
