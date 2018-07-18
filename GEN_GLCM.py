@@ -6,8 +6,8 @@ from MachineLearn.Classes.Extractors.GLCM import GLCM
 MIN_BITS = 2
 MAX_BITS = 8
 
-MIN_DECIMATION = 1
-MAX_DECIMATION = 10
+MIN_DECIMATION = 11
+MAX_DECIMATION = 100
 
 PATH_TO_IMAGES_FOLDER = '../database-Crosswalk/Original/'
 PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_02/'
