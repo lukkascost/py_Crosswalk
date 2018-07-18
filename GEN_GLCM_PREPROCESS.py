@@ -6,8 +6,8 @@ from MachineLearn.Classes.Extractors.GLCM import GLCM
 MIN_BITS = 2
 MAX_BITS = 8
 
-MIN_DECIMATION = 1
-MAX_DECIMATION = 10
+MIN_DECIMATION = 11
+MAX_DECIMATION = 100
 
 PATH_TO_IMAGES_FOLDER = '../database-Crosswalk/Preprocessed/'
 PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_01/'
@@ -40,4 +40,4 @@ for nbits in range(MIN_BITS, MAX_BITS + 1):
         listGLCM = np.array(listGLCM)
 
         """ SAVE FILE WITH FEATURES, DECIMATION WITH STEP = k AND CORRELATION MATRIX WITH nbits BITS. """
-        np.savetxt(+PATH_TO_SAVE_FEATURES+"FEATURES_M{}_CM{}b.txt".format(k, nbits), listGLCM, fmt="%s", delimiter=',')
+        np.savetxt(PATH_TO_SAVE_FEATURES+"FEATURES_M{}_CM{}b.txt".format(k, nbits), listGLCM, fmt="%s", delimiter=',')
