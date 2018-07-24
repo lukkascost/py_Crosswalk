@@ -3,10 +3,10 @@ import numpy as np
 
 from MachineLearn.Classes.Extractors.GLCM import GLCM
 
-MIN_BITS = 2
+MIN_BITS = 8
 MAX_BITS = 8
 
-MIN_DECIMATION = 11
+MIN_DECIMATION = 48
 MAX_DECIMATION = 100
 
 PATH_TO_IMAGES_FOLDER = '../database-Crosswalk/Original/'
