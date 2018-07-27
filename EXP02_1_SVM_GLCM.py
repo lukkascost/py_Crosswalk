@@ -10,7 +10,7 @@ SAMPLES_PER_CLASS = 50
 PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_02/'
 NUMBER_OF_ROUNDS = 50
 MIN_DECIMATION = 1
-MAX_DECIMATION = 10
+MAX_DECIMATION = 100
 
 oExp = Experiment()
 basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
@@ -41,9 +41,9 @@ basemask = basemask - 1
 #         oDataSet.append(oData)
 #     oExp.addDataSet(oDataSet, description="  50 execucoes M={} CM=8b base CROSSWALK arquivos em EXP_02".format(M))
 #     print(oDataSet)
-# oExp.save("OBJECTS/EXP_02_ACC_M1-10_50_CM8b.txt")
+# oExp.save("OBJECTS/EXP_02_ACC_M1-100_50_CM8b.txt")
 
 ######################
 
-oExp = oExp.load("OBJECTS/EXP_02_ACC_M1-10_50_CM8b.txt")
+oExp = oExp.load("OBJECTS/EXP_02_ACC_M1-100_50_CM8b.txt")
 print oExp.show_in_table()
