@@ -41,9 +41,9 @@ basemask = basemask - 1
 #         oDataSet.append(oData)
 #     oExp.addDataSet(oDataSet, description="  50 execucoes M={} CM=8b base CROSSWALK arquivos em EXP_02".format(M))
 #     print(oDataSet)
-# oExp.save("OBJECTS/EXP_02_ACC_M1-100_50_CM8b.txt")
+# oExp.save("OBJECTS/EXP_02_ACC_M{}-{}_{}_CM8b.txt".format(MIN_DECIMATION,MAX_DECIMATION,NUMBER_OF_ROUNDS))
 
 ######################
 
-oExp = oExp.load("OBJECTS/EXP_02_ACC_M1-100_50_CM8b.txt")
+oExp = oExp.load("OBJECTS/EXP_02_ACC_M{}-{}_{}_CM8b.txt".format(MIN_DECIMATION,MAX_DECIMATION,NUMBER_OF_ROUNDS))
 print oExp.show_in_table()
