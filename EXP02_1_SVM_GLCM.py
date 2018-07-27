@@ -45,5 +45,5 @@ basemask = basemask - 1
 
 ######################
 
-oExp = oExp.load("OBJECTS/EXP_02_ACC_M{}-{}_{}_CM8b.txt".format(MIN_DECIMATION,MAX_DECIMATION,NUMBER_OF_ROUNDS))
+oExp = oExp.load("OBJECTS/EXP_02_ACC_M{}-{}_{}_CM8b.txt".format(MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS))
 print oExp.show_in_table()
