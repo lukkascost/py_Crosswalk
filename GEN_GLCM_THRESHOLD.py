@@ -6,7 +6,7 @@ from MachineLearn.Classes.Extractors.GLCM import GLCM
 MIN_BITS = 8
 MAX_BITS = 8
 
-MIN_DECIMATION = 1
+MIN_DECIMATION = 12
 MAX_DECIMATION = 100
 
 THRESHOLD_VALUE = 180
