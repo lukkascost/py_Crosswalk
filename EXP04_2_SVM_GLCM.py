@@ -9,8 +9,8 @@ from MachineLearn.Classes.experiment import Experiment
 SAMPLES_PER_CLASS = 50
 PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_04/'
 NUMBER_OF_ROUNDS = 50
-MIN_THRESHOLD = 160
-MAX_THRESHOLD = 220
+MIN_THRESHOLD = 191
+MAX_THRESHOLD = 199
 
 oExp = Experiment()
 basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
@@ -18,7 +18,7 @@ svmVectors = []
 basemask = basemask - 1
 
 
-for TH in range(MIN_THRESHOLD, MAX_THRESHOLD + 1, 5):
+for TH in range(MIN_THRESHOLD, MAX_THRESHOLD + 1):
     oDataSet = DataSet()
     base = np.loadtxt(PATH_TO_SAVE_FEATURES + "FEATURES_M1_CM8b_TH{}.txt".format(TH), usecols=basemask, delimiter=",")
     classes = np.loadtxt(PATH_TO_SAVE_FEATURES + "FEATURES_M1_CM8b_TH{}.txt".format(TH), dtype=object, usecols=24, delimiter=",")
