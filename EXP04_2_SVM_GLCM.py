@@ -9,8 +9,8 @@ from MachineLearn.Classes.experiment import Experiment
 SAMPLES_PER_CLASS = 50
 PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_04/'
 NUMBER_OF_ROUNDS = 50
-MIN_THRESHOLD = 191
-MAX_THRESHOLD = 199
+MIN_THRESHOLD = 190
+MAX_THRESHOLD = 200
 
 oExp = Experiment()
 basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
