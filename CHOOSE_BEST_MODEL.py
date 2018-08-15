@@ -54,37 +54,51 @@ oExp = oExp.load("OBJECTS/EXPERIMENTO_04_MELHOR_TREINAMENTO_10000_CROSSWALK_198_
 # print oExp.experimentResults[0].dataSet[8872]
 
 oDataSet = oExp.experimentResults[0]
-
-bestIndexies = []
-bestP1 = 0
-bestP2 = 0
-nvector = 1000000
-i = 0
-for oData in oDataSet.dataSet[i:]:
-    svm = None
+#
+# bestIndexies = []
+# bestP1 = 0
+# bestP2 = 0
+# nvector = 1000000
+# i = 0
+# for oData in oDataSet.dataSet[i:]:
+#     svm = None
+#     svm = cv2.SVM()
+#     svm.train_auto(np.float32(oDataSet.atributes[oData.Training_indexes]),
+#                    np.float32(oDataSet.labels[oData.Training_indexes]), None, None, params=oData.params)
+#     svm.save("SVM_MODELS/EXP_04/SVM_RBF_{}.gzip".format(i))
+#     results1 = svm.predict_all(np.float32(oDataSet.atributes[oData.Testing_indexes]))
+#     results2 = svm.predict_all(np.float32(oDataSet.atributes[oData.Training_indexes]))
+#
+#     oData.confusion_matrix = np.zeros((4, 4))
+#     oData.setResultsFromClassfier(results1, oDataSet.labels[oData.Testing_indexes])
+#     acc = oData.getMetrics()[0, -1]
+#
+#     oData.confusion_matrix = np.zeros((4,4))
+#     oData.setResultsFromClassfier(results2, oDataSet.labels[oData.Training_indexes])
+#     acc2 = oData.getMetrics()[0, -1]
+#     if acc + acc2 >= bestP1:
+#         if True: #abs(acc - acc2) >= bestP2:
+#             # print acc, acc2, nvector,  acc + acc2, abs(acc - acc2), i, "M2"
+#             if True: #svm.get_support_vector_count() <= nvector:
+#                 bestP1 = acc + acc2
+#                 bestP2 = abs(acc - acc2)
+#                 nvector = svm.get_support_vector_count()
+#                 bestIndexies.append(i)
+#                 print acc, acc2, nvector, bestP1, bestP2, i
+#
+#     i += 1
+#     # print "Numero de vetores suporte: ", svm.get_support_vector_count()
+firsts = [8872, 7516, 6041, 2377, 1324]
+for i in firsts:
+    oData = oExp.experimentResults[0].dataSet[i]
     svm = cv2.SVM()
-    svm.train_auto(np.float32(oDataSet.atributes[oData.Training_indexes]),
-                   np.float32(oDataSet.labels[oData.Training_indexes]), None, None, params=oData.params)
-    svm.save("SVM_MODELS/EXP_04/SVM_RBF_{}.gzip".format(i))
+    svm.load("SVM_MODELS/EXP_04/SVM_RBF_{}.gzip".format(i))
     results1 = svm.predict_all(np.float32(oDataSet.atributes[oData.Testing_indexes]))
     results2 = svm.predict_all(np.float32(oDataSet.atributes[oData.Training_indexes]))
-
     oData.confusion_matrix = np.zeros((4, 4))
-    oData.setResultsFromClassfier(results1, oDataSet.labels[oData.Testing_indexes])
+    oData.setResultsFromClassfier(results2, oDataSet.labels[oData.Training_indexes])
     acc = oData.getMetrics()[0, -1]
 
-    oData.confusion_matrix = np.zeros((4,4))
-    oData.setResultsFromClassfier(results2, oDataSet.labels[oData.Training_indexes])
-    acc2 = oData.getMetrics()[0, -1]
-    if acc + acc2 >= bestP1:
-        if True: #abs(acc - acc2) >= bestP2:
-            # print acc, acc2, nvector,  acc + acc2, abs(acc - acc2), i, "M2"
-            if True: #svm.get_support_vector_count() <= nvector:
-                bestP1 = acc + acc2
-                bestP2 = abs(acc - acc2)
-                nvector = svm.get_support_vector_count()
-                bestIndexies.append(i)
-                print acc, acc2, nvector, bestP1, bestP2, i
-
-    i += 1
-    # print "Numero de vetores suporte: ", svm.get_support_vector_count()
+    print i
+    print oData
+    print
