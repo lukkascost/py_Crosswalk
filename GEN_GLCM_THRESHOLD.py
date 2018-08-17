@@ -3,7 +3,7 @@ import numpy as np
 
 from MachineLearn.Classes.Extractors.GLCM import GLCM
 
-MIN_BITS = 2
+MIN_BITS = 7
 MAX_BITS = 7
 
 MIN_DECIMATION = 1
