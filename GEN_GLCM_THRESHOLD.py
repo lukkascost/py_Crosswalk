@@ -3,10 +3,10 @@ import numpy as np
 
 from MachineLearn.Classes.Extractors.GLCM import GLCM
 
-MIN_BITS = 8
-MAX_BITS = 8
+MIN_BITS = 2
+MAX_BITS = 7
 
-MIN_DECIMATION = 90
+MIN_DECIMATION = 1
 MAX_DECIMATION = 100
 
 MIN_THRESHOLD_VALUE = 198
