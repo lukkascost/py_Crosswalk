@@ -13,7 +13,7 @@ MIN_DECIMATION = 1
 MAX_DECIMATION = 100
 
 oExp = Experiment()
-basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
+basemask = np.array([12, 20, 22])
 svmVectors = []
 basemask = basemask - 1
 
