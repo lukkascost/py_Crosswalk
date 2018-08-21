@@ -13,7 +13,7 @@ MIN_DECIMATION = 1
 MAX_DECIMATION = 100
 
 oExp = Experiment()
-basemask = np.array([12, 20, 22])
+basemask = np.array(range(1,25))
 svmVectors = []
 basemask = basemask - 1
 
@@ -42,9 +42,9 @@ for M in range(MIN_DECIMATION, MAX_DECIMATION + 1):
         oDataSet.append(oData)
     oExp.add_data_set(oDataSet, description="  50 execucoes M={} CM=8b base CROSSWALK arquivos em EXP_04".format(M))
     print(oDataSet)
-oExp.save("OBJECTS/EXP_04_ACC_M{}-{}_{}_CM8b.txt".format(MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS))
+oExp.save("OBJECTS/EXP_04_ACC_M{}-{}_{}_CM8b_ATT24.txt".format(MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS))
 
 ######################
 
-oExp = oExp.load("OBJECTS/EXP_04_ACC_M{}-{}_{}_CM8b.txt".format(MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS))
+oExp = oExp.load("OBJECTS/EXP_04_ACC_M{}-{}_{}_CM8b_ATT24.txt".format(MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS))
 print oExp.show_in_table()
