@@ -21,15 +21,37 @@ for i, oDataSet in enumerate(oExp.experimentResults):
 
 results = results * 100
 
-possibles = []
-
-avg_minus = np.mean(results[:5, 1]) - np.std(results[:5, 1])
-avg_plus = np.mean(results[:5, 1]) + np.std(results[:5, 1])
+possibles_a = []
+possibles_b = []
+possibles_c = []
+avg_minus = np.min(results[:10, 0])
 
 for i in range(MIN_DECIMATION, MAX_DECIMATION + 1):
     if avg_minus <= results[i - MIN_DECIMATION, 0]:
-        possibles.append(i)
-print results[possibles]
-print possibles
+        possibles_a.append(i)
+    if avg_minus <= results[i - MIN_DECIMATION, 1]:
+        possibles_b.append(i)
+    if avg_minus <= results[i - MIN_DECIMATION, 2]:
+        possibles_c.append(i)
 
-print avg_minus, avg_plus
+
+print "CASO 1: Media"
+print "\tPossiveis: ", possibles_b
+print "M{}".format(possibles_b[-1])
+print "\tacc-std = {}".format(results[possibles_b[-1] - 1, 0])
+print "\tacc     = {}".format(results[possibles_b[-1] - 1, 1])
+print "\tacc+std = {}".format(results[possibles_b[-1] - 1, 2])
+print
+print "CASO 2: Media - std"
+print "\tPossiveis: ", possibles_a
+print "M{}".format(possibles_a[-1])
+print "\tacc-std = {}".format(results[possibles_a[-1] - 1, 0])
+print "\tacc     = {}".format(results[possibles_a[-1] - 1, 1])
+print "\tacc+std = {}".format(results[possibles_a[-1] - 1, 2])
+print
+print "CASO 1: Media + std"
+print "\tPossiveis: ", possibles_c
+print "M{}".format(possibles_c[-1])
+print "\tacc-std = {}".format(results[possibles_c[-1] - 1, 0])
+print "\tacc     = {}".format(results[possibles_c[-1] - 1, 1])
+print "\tacc+std = {}".format(results[possibles_c[-1] - 1, 2])
