@@ -24,7 +24,7 @@ results = results * 100
 possibles_a = []
 possibles_b = []
 possibles_c = []
-avg_minus = np.min(results[:10, 0])
+avg_minus = np.min(results[:3, 0])
 
 for i in range(MIN_DECIMATION, MAX_DECIMATION + 1):
     if avg_minus <= results[i - MIN_DECIMATION, 0]:
