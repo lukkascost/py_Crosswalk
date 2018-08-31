@@ -11,7 +11,7 @@ PATH_TO_SAVE_FEATURES = '../../GLCM_FILES/EXP_04/'
 NUMBER_OF_ROUNDS = 50
 MIN_BITS = 2
 MAX_BITS = 8
-DECIMATION = 32
+DECIMATION = 10
 
 oExp = Experiment()
 basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
@@ -43,7 +43,7 @@ for n_bits in range(MIN_BITS, MAX_BITS + 1):
         oData.set_results_from_classifier(results, oDataSet.labels[oData.Testing_indexes])
         oDataSet.append(oData)
     oExp.add_data_set(oDataSet,
-                      description="  50 execucoes M=1 CM={}b base CROSSWALK arquivos em EXP_04".format(n_bits))
+                      description="  50 execucoes M={} CM={}b base CROSSWALK arquivos em EXP_04".format(DECIMATION,n_bits))
     print(oDataSet)
 oExp.save(
     "../../OBJECTS/EXP_{:02d}/ACC_M{}_{}_CM{}-{}b_ATT10.txt".format(4, DECIMATION, NUMBER_OF_ROUNDS, MIN_BITS, MAX_BITS))
