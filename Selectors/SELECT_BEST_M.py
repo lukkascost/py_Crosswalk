@@ -24,7 +24,7 @@ results = results * 100
 possibles_a = []
 possibles_b = []
 possibles_c = []
-avg_minus = np.min(results[:10, 0])
+avg_minus = np.min(results[:3, 0])
 
 for i in range(MIN_DECIMATION, MAX_DECIMATION + 1):
     if avg_minus <= results[i - MIN_DECIMATION, 0]:
@@ -49,7 +49,7 @@ print "\tacc-std = {}".format(results[possibles_a[-1] - 1, 0])
 print "\tacc     = {}".format(results[possibles_a[-1] - 1, 1])
 print "\tacc+std = {}".format(results[possibles_a[-1] - 1, 2])
 print
-print "CASO 1: Media + std"
+print "CASO 3: Media + std"
 print "\tPossiveis: ", possibles_c
 print "M{}".format(possibles_c[-1])
 print "\tacc-std = {}".format(results[possibles_c[-1] - 1, 0])
