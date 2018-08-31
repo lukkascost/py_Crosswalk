@@ -11,7 +11,7 @@ PATH_TO_SAVE_FEATURES = '../../GLCM_FILES/EXP_04/'
 NUMBER_OF_ROUNDS = 50
 MIN_BITS = 2
 MAX_BITS = 8
-DECIMATION = 10
+DECIMATION = 14
 
 oExp = Experiment()
 basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
