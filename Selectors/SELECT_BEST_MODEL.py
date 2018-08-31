@@ -4,101 +4,127 @@ from MachineLearn.Classes.data import Data
 import numpy as np
 import cv2
 
-oExp = Experiment()
+M = 1
 basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
-acuracia = 0
-nVetores = 10000
-PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_04/'
 TH = 198
+ROUNDS = 10000
 
-###############################################################################################################################
-# basemask = basemask - 1
-# best = 0
-#
-# for i in range(1):
-#     oDataSet = DataSet()
-#     base = np.loadtxt(PATH_TO_SAVE_FEATURES + "FEATURES_M1_CM8b_TH{}.txt".format(TH), usecols=basemask, delimiter=",")
-#     classes = np.loadtxt(PATH_TO_SAVE_FEATURES + "FEATURES_M1_CM8b_TH{}.txt".format(TH), dtype=object, usecols=24, delimiter=",")
-#     for x, y in enumerate(base):
-#         oDataSet.addSampleOfAtt(np.array(list(np.float32(y)) + [classes[x]]))
-#     oDataSet.atributes = oDataSet.atributes.astype(float)
-#     oDataSet.normalizeDataSet()
-#     for j in range(10):
-#         oData = Data(4, 13, samples=50)
-#         oData.randomTrainingTestPerClass()
-#         svm = oData.svm
-#         oData.params = dict(kernel_type=cv2.SVM_RBF, svm_type=cv2.SVM_C_SVC, gamma=2.0, nu=0.0, p=0.0, coef0=0,
-#                             k_fold=2)
-#         svm.train_auto(np.float32(oDataSet.atributes[oData.Training_indexes]),
-#                        np.float32(oDataSet.labels[oData.Training_indexes]), None, None, params=oData.params)
-#         results = svm.predict_all(np.float32(oDataSet.atributes[oData.Testing_indexes]))
-#         oData.setResultsFromClassfier(results, oDataSet.labels[oData.Testing_indexes])
-#         if oData.getMetrics()[0, -1] > acuracia:
-#             nVetores = svm.get_support_vector_count()
-#             acuracia = oData.getMetrics()[0, -1]
-#             print nVetores, acuracia, j
-#             best = j
-#         elif oData.getMetrics()[0, -1] == acuracia:
-#             if nVetores > svm.get_support_vector_count():
-#                 nVetores = svm.get_support_vector_count()
-#                 best = j
-#
-#         oDataSet.append(oData)
-#     oExp.addDataSet(oDataSet,
-#                     description="10000 execucoes para escolher melhores vetores de suporte, o melhor esta no index {:05d}".format(
-#                         best))
-# oExp.save("OBJECTS/EXPERIMENTO_04_MELHOR_TREINAMENTO_10000_CROSSWALK_198_LIMIAR.txt")
-
-# ################################################################################################################################
-oExp = oExp.load("OBJECTS/EXPERIMENTO_04_MELHOR_TREINAMENTO_10000_CROSSWALK_198_LIMIAR.txt")
-# print oExp.experimentResults[0].dataSet[8872]
-
+oExp = Experiment.load("../OBJECTS/EXP_04/BEST_MODEL_{}_CROSSWALK_M{}_TH{}.txt".format(ROUNDS, M, TH))
 oDataSet = oExp.experimentResults[0]
-#
-# bestIndexies = []
-# bestP1 = 0
-# bestP2 = 0
-# nvector = 1000000
-# i = 0
-# for oData in oDataSet.dataSet[i:]:
-#     svm = None
-#     svm = cv2.SVM()
-#     svm.train_auto(np.float32(oDataSet.atributes[oData.Training_indexes]),
-#                    np.float32(oDataSet.labels[oData.Training_indexes]), None, None, params=oData.params)
-#     svm.save("SVM_MODELS/EXP_04/SVM_RBF_{}.gzip".format(i))
-#     results1 = svm.predict_all(np.float32(oDataSet.atributes[oData.Testing_indexes]))
-#     results2 = svm.predict_all(np.float32(oDataSet.atributes[oData.Training_indexes]))
-#
-#     oData.confusion_matrix = np.zeros((4, 4))
-#     oData.setResultsFromClassfier(results1, oDataSet.labels[oData.Testing_indexes])
-#     acc = oData.getMetrics()[0, -1]
-#
-#     oData.confusion_matrix = np.zeros((4,4))
-#     oData.setResultsFromClassfier(results2, oDataSet.labels[oData.Training_indexes])
-#     acc2 = oData.getMetrics()[0, -1]
-#     if acc + acc2 >= bestP1:
-#         if True: #abs(acc - acc2) >= bestP2:
-#             # print acc, acc2, nvector,  acc + acc2, abs(acc - acc2), i, "M2"
-#             if True: #svm.get_support_vector_count() <= nvector:
-#                 bestP1 = acc + acc2
-#                 bestP2 = abs(acc - acc2)
-#                 nvector = svm.get_support_vector_count()
-#                 bestIndexies.append(i)
-#                 print acc, acc2, nvector, bestP1, bestP2, i
-#
-#     i += 1
-#     # print "Numero de vetores suporte: ", svm.get_support_vector_count()
-firsts = [8872, 7516, 6041, 2377, 1324]
-for i in firsts:
-    oData = oExp.experimentResults[0].dataSet[i]
-    svm = cv2.SVM()
-    svm.load("SVM_MODELS/EXP_04/SVM_RBF_{}.gzip".format(i))
-    results1 = svm.predict_all(np.float32(oDataSet.atributes[oData.Testing_indexes]))
-    results2 = svm.predict_all(np.float32(oDataSet.atributes[oData.Training_indexes]))
-    oData.confusion_matrix = np.zeros((4, 4))
-    oData.setResultsFromClassfier(results2, oDataSet.labels[oData.Training_indexes])
-    acc = oData.getMetrics()[0, -1]
 
-    print i
-    print oData
-    print
+bestIndexies = []
+bestP1 = 0
+bestP2 = 0
+nvector = 1000000
+i = 0
+results = np.zeros((4, 4, 2))
+for i, j in enumerate(oDataSet.dataSet):
+    j.save_model("tmp.txt")
+    svm = cv2.SVM()
+    svm.load("tmp.txt")
+    results1 = svm.predict_all(np.float32(oDataSet.attributes[j.Testing_indexes]))
+    results2 = svm.predict_all(np.float32(oDataSet.attributes[j.Training_indexes]))
+    acc = j.get_metrics()[0][-1]
+    j.confusion_matrix = np.zeros((4, 4))
+    j.set_results_from_classifier(results2, oDataSet.labels[j.Training_indexes])
+    acc2 = j.get_metrics()[0, -1]
+    if acc + acc2 >= bestP1:
+        bestP1 = acc + acc2
+        bestP2 = abs(acc - acc2)
+        nvector = svm.get_support_vector_count()
+        bestIndexies.append(i)
+        print acc, acc2, nvector, bestP1, bestP2, i
+
+bestIndexies = bestIndexies[-4:]
+oExp = oExp.load("../OBJECTS/EXP_04/BEST_MODEL_{}_CROSSWALK_M{}_TH{}.txt".format(ROUNDS, M, TH))
+oDataSet = oExp.experimentResults[0]
+
+print "\nSIGMOID RESULTS"
+for k in bestIndexies:
+    oData = oDataSet.dataSet[k]
+    svm = cv2.SVM()
+    oData.params = dict(kernel_type=cv2.SVM_SIGMOID, svm_type=cv2.SVM_C_SVC, gamma=2.0, nu=0.0, p=0.0, coef0=0,
+                        k_fold=2)
+    svm.train_auto(np.float32(oDataSet.attributes[oData.Training_indexes]),
+                   np.float32(oDataSet.labels[oData.Training_indexes]), None, None, params=oData.params)
+
+    results1 = svm.predict_all(np.float32(oDataSet.attributes[oData.Testing_indexes]))
+    results2 = svm.predict_all(np.float32(oDataSet.attributes[oData.Training_indexes]))
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results1, oDataSet.labels[oData.Testing_indexes])
+    acc = oData.get_metrics()[0][-1]
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results2, oDataSet.labels[oData.Training_indexes])
+    acc2 = oData.get_metrics()[0][-1]
+    print "{:04d}\t{:03.04f}\t{:03.04f}".format(k, acc * 100, acc2 * 100)
+
+oExp = oExp.load("../OBJECTS/EXP_04/BEST_MODEL_{}_CROSSWALK_M{}_TH{}.txt".format(ROUNDS, M, TH))
+oDataSet = oExp.experimentResults[0]
+print "\nPOLY RESULTS"
+for k in bestIndexies:
+    oData = oDataSet.dataSet[k]
+    svm = cv2.SVM()
+    oData.params = dict(kernel_type=cv2.SVM_POLY, svm_type=cv2.SVM_C_SVC, degree=1, gamma=2.0, nu=0.0, p=0.0, coef0=0,
+                        k_fold=2)
+    svm.train_auto(np.float32(oDataSet.attributes[oData.Training_indexes]),
+                   np.float32(oDataSet.labels[oData.Training_indexes]), None, None, params=oData.params)
+
+    results1 = svm.predict_all(np.float32(oDataSet.attributes[oData.Testing_indexes]))
+    results2 = svm.predict_all(np.float32(oDataSet.attributes[oData.Training_indexes]))
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results1, oDataSet.labels[oData.Testing_indexes])
+    acc = oData.get_metrics()[0][-1]
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results2, oDataSet.labels[oData.Training_indexes])
+    acc2 = oData.get_metrics()[0][-1]
+    print "{:04d}\t{:03.04f}\t{:03.04f}".format(k, acc * 100, acc2 * 100)
+
+oExp = oExp.load("../OBJECTS/EXP_04/BEST_MODEL_{}_CROSSWALK_M{}_TH{}.txt".format(ROUNDS, M, TH))
+oDataSet = oExp.experimentResults[0]
+
+print "\nLINEAR RESULTS"
+for k in bestIndexies:
+    oData = oDataSet.dataSet[k]
+    svm = cv2.SVM()
+    oData.params = dict(kernel_type=cv2.SVM_LINEAR, svm_type=cv2.SVM_C_SVC, degree=1, gamma=2.0, nu=0.0, p=0.0, coef0=0,
+                        k_fold=2)
+    svm.train_auto(np.float32(oDataSet.attributes[oData.Training_indexes]),
+                   np.float32(oDataSet.labels[oData.Training_indexes]), None, None, params=oData.params)
+
+    results1 = svm.predict_all(np.float32(oDataSet.attributes[oData.Testing_indexes]))
+    results2 = svm.predict_all(np.float32(oDataSet.attributes[oData.Training_indexes]))
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results1, oDataSet.labels[oData.Testing_indexes])
+    acc = oData.get_metrics()[0][-1]
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results2, oDataSet.labels[oData.Training_indexes])
+    acc2 = oData.get_metrics()[0][-1]
+    print "{:04d}\t{:03.04f}\t{:03.04f}".format(k, acc * 100, acc2 * 100)
+
+oExp = oExp.load("../OBJECTS/EXP_04/BEST_MODEL_{}_CROSSWALK_M{}_TH{}.txt".format(ROUNDS, M, TH))
+oDataSet = oExp.experimentResults[0]
+
+print "\nRBF RESULTS"
+for k in bestIndexies:
+    oData = oDataSet.dataSet[k]
+    oData.save_model("tmp.txt")
+    svm = cv2.SVM()
+    svm.load("tmp.txt")
+
+    results1 = svm.predict_all(np.float32(oDataSet.attributes[oData.Testing_indexes]))
+    results2 = svm.predict_all(np.float32(oDataSet.attributes[oData.Training_indexes]))
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results1, oDataSet.labels[oData.Testing_indexes])
+    acc = oData.get_metrics()[0][-1]
+
+    oData.confusion_matrix = np.zeros((4, 4))
+    oData.set_results_from_classifier(results2, oDataSet.labels[oData.Training_indexes])
+    acc2 = oData.get_metrics()[0][-1]
+    print "{:04d}\t{:03.04f}\t{:03.04f}".format(k, acc * 100, acc2 * 100)
