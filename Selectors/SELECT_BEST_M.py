@@ -34,7 +34,7 @@ for i in range(MIN_DECIMATION, MAX_DECIMATION + 1):
     if avg_minus <= results[i - MIN_DECIMATION, 2]:
         possibles_c.append(i)
 
-
+print "FAIXA DE CORTE: ", avg_minus
 print "CASO 1: Media"
 print "\tPossiveis: ", possibles_b
 print "M{}".format(possibles_b[-1])
