@@ -13,10 +13,10 @@ MIN_DECIMATION = 1
 MAX_DECIMATION = 100
 EXPERIMENT = 5
 NBITS = 8
-NATT = 24
+NATT = 10
 
 oExp = Experiment()
-basemask = np.array(range(1,25))
+basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
 svmVectors = []
 basemask = basemask - 1
 
