@@ -11,6 +11,9 @@ PATH_TO_SAVE_FEATURES = '../../GLCM_FILES/EXP_04/'
 NUMBER_OF_ROUNDS = 50
 MIN_DECIMATION = 1
 MAX_DECIMATION = 100
+EXPERIMENT = 5
+NBITS = 8
+NATT = 24
 
 oExp = Experiment()
 basemask = np.array(range(1,25))
@@ -40,11 +43,11 @@ for M in range(MIN_DECIMATION, MAX_DECIMATION + 1):
         oData.set_results_from_classifier(results, oDataSet.labels)
         oData.insert_model(svm)
         oDataSet.append(oData)
-    oExp.add_data_set(oDataSet, description="  50 execucoes M={} CM=8b base CROSSWALK arquivos em EXP_04".format(M))
+    oExp.add_data_set(oDataSet, description="  50 execucoes M={} CM={}b base CROSSWALK arquivos em EXP_{:02d}".format(M,NBITS, EXPERIMENT))
     print(oDataSet)
-oExp.save("../../OBJECTS/EXP_05_ACC_M{}-{}_{}_CM8b_ATT24.txt".format(MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS))
+oExp.save("../../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}b_ATT{}.gzip".format(EXPERIMENT,MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS, NBITS, NATT))
 
 ######################
 
-oExp = oExp.load("../../OBJECTS/EXP_05_ACC_M{}-{}_{}_CM8b_ATT24.txt".format(MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS))
+oExp = oExp.load("../../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}b_ATT{}.gzip".format(EXPERIMENT,MIN_DECIMATION, MAX_DECIMATION, NUMBER_OF_ROUNDS, NBITS, NATT))
 print oExp.show_in_table()
