@@ -114,16 +114,16 @@ if (gerarTabelas):
     ### T2_M100,50,10,1_CM5b
     print "{:#^80}".format(" T2_M27,14,1_CM8b ")
     strResult = ""
-    for k in range(3):
+    for k in range(4):
         for i, j in enumerate([27, 14, 1]):
             totals = np.loadtxt(PATH_TO_SAVE_RESULTS+"T2_M27,14,1_CM8b_Line_{:03d}.txt".format(i), delimiter=",")
-            strResult += str(round(np.average(totals, axis=0)[k], 4)) + " +- "
+            strResult += str(round(np.average(totals, axis=0)[k], 4)) + "+-"
             strResult += str(round(np.std(totals, axis=0)[k], 4)) + "\t"
         strResult += "\n"
 
     for i, j in enumerate([27, 14, 1]):
         totals = np.loadtxt(PATH_TO_SAVE_RESULTS+"T2_M27,14,1_CM8b_Line_{:03d}.txt".format(i), delimiter=",")
-        strResult += str(np.round(np.sum(np.average(totals, axis=0)), 4)) + " +- "
+        strResult += str(np.round(np.sum(np.average(totals, axis=0)), 4)) + "+-"
         strResult += str(np.round(np.sum(np.std(totals, axis=0)), 4)) + "\t"
     print strResult
 
@@ -132,16 +132,16 @@ if (gerarTabelas):
     ### T1_M1_CM1-8b
     print "{:#^80}".format(" T1_M1_CM2-8b ")
     strResult = ""
-    for k in range(3):
+    for k in range(4):
         for i, j in enumerate([2, 3, 4, 5, 6, 7, 8]):
             totals = np.loadtxt(PATH_TO_SAVE_RESULTS+"T1_M1_CM2-8b_Line_{:03d}.txt".format(i), delimiter=",")
-            strResult += str(round(np.average(totals, axis=0)[k], 4)) + " +- "
+            strResult += str(round(np.average(totals, axis=0)[k], 4)) + "+-"
             strResult += str(round(np.std(totals, axis=0)[k], 4)) + "\t"
         strResult += "\n"
 
     for i, j in enumerate([2, 3, 4, 5, 6, 7, 8]):
         totals = np.loadtxt(PATH_TO_SAVE_RESULTS+"T1_M1_CM2-8b_Line_{:03d}.txt".format(i), delimiter=",")
-        strResult += str(np.round(np.sum(np.average(totals, axis=0)), 4)) + " +- "
+        strResult += str(np.round(np.sum(np.average(totals, axis=0)), 4)) + "+-"
         strResult += str(np.round(np.sum(np.std(totals, axis=0)), 4)) + "\t"
     print strResult
 
