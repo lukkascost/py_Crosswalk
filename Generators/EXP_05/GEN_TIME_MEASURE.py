@@ -4,7 +4,7 @@ import cv2
 from MachineLearn.Classes.Extractors.GLCM import GLCM
 
 gerarTabelas = True
-gerarResultados = True
+gerarResultados = False
 PATH_TO_IMAGES_FOLDER = '../../../database-Crosswalk/Original/'
 PATH_TO_SAVE_RESULTS = '../../TIMES/EXP_05/'
 NATT = 24
@@ -19,10 +19,10 @@ def measureTime10(img, bits=6):
     img = img / 2 ** (8 - bits)
     oGlcm = GLCM(img, bits, number_of_Attributes=NATT)
     """10 Atts"""
-    # basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
+    basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
 
     """24 atts"""
-    basemask = np.array(range(1, 25))
+    # basemask = np.array(range(1, 25))
 
     basemask = basemask - 1
     times = np.zeros(4)
@@ -44,24 +44,24 @@ def measureTime10(img, bits=6):
 
     start = tm.time()
     """10 atts"""
-    # for i in range(gray):
-    #     for j in range(gray):
-    #         ij = oGlcm.coOccurenceNormalized[i, j]
-    #         glcm_atributes[1] += ij * ij
-    #         glcm_atributes[2] += ((i - j) * (i - j) * (ij))
-    #         glcm_atributes[5] += (ij) / (1 + ((i - j) * (i - j)))
-    #         glcm_atributes[9] += ij * np.log10(ij + 1e-30)
-    #         glcm_atributes[15] += (ij) / (1 + abs(i - j))
-    #         glcm_atributes[16] += ij * (i + j)
-    #         glcm_atributes[21] += ij * abs(i - j)
-    #         glcm_atributes[22] += ij * (i - j)
-    #         glcm_atributes[23] += ij * i * j
-    # glcm_atributes[17] = np.amax(oGlcm.coOccurenceNormalized)
-    # glcm_atributes[16] /= 2
-    # glcm_atributes[22] /= 2
-    # glcm_atributes[9] *= -1
+    for i in range(gray):
+        for j in range(gray):
+            ij = oGlcm.coOccurenceNormalized[i, j]
+            glcm_atributes[1] += ij * ij
+            glcm_atributes[2] += ((i - j) * (i - j) * (ij))
+            glcm_atributes[5] += (ij) / (1 + ((i - j) * (i - j)))
+            glcm_atributes[9] += ij * np.log10(ij + 1e-30)
+            glcm_atributes[15] += (ij) / (1 + abs(i - j))
+            glcm_atributes[16] += ij * (i + j)
+            glcm_atributes[21] += ij * abs(i - j)
+            glcm_atributes[22] += ij * (i - j)
+            glcm_atributes[23] += ij * i * j
+    glcm_atributes[17] = np.amax(oGlcm.coOccurenceNormalized)
+    glcm_atributes[16] /= 2
+    glcm_atributes[22] /= 2
+    glcm_atributes[9] *= -1
     """24 Atts"""
-    oGlcm.calculateAttributes()
+    # oGlcm.calculateAttributes()
 
     """3 Atts"""
 
