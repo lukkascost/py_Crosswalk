@@ -3,22 +3,23 @@ import numpy as np
 
 from MachineLearn.Classes.Extractors.GLCM import GLCM
 
-MIN_BITS = 7
-MAX_BITS = 7
+MIN_BITS = 8
+MAX_BITS = 8
 
 MIN_DECIMATION = 1
-MAX_DECIMATION = 100
+MAX_DECIMATION = 1
 
-MIN_THRESHOLD_VALUE = 198
-MAX_THRESHOLD_VALUE = 198
+MIN_THRESHOLD_VALUE = 160
+MAX_THRESHOLD_VALUE = 250
+TH_STEP = 10
 
-PATH_TO_IMAGES_FOLDER = '../database-Crosswalk/Original/'
-PATH_TO_SAVE_FEATURES = 'GLCM_FILES/EXP_04/'
-for THRESHOLD in range(MIN_THRESHOLD_VALUE, MAX_THRESHOLD_VALUE + 1):
+PATH_TO_IMAGES_FOLDER = '../../database-Crosswalk/Original/'
+PATH_TO_SAVE_FEATURES = '../GLCM_FILES/EXP_06/'
+for THRESHOLD in range(MIN_THRESHOLD_VALUE, MAX_THRESHOLD_VALUE + 1, TH_STEP):
     for nbits in range(MIN_BITS, MAX_BITS + 1):
         for k in range(MIN_DECIMATION, MAX_DECIMATION + 1):
             listGLCM = []
-            for quantity in [[1, 50], [2, 50], [3, 50], [4, 150]]:
+            for quantity in [[1, 150], [2, 150], [3, 150], [4, 150]]:
                 for image in range(1, quantity[1] + 1):
                     img = cv2.imread(PATH_TO_IMAGES_FOLDER + "c{:d}_p1_{:d}.jpg".format(quantity[0], image), 0)
                     """ DECIMATION """
