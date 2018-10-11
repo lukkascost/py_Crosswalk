@@ -42,7 +42,7 @@ for THRESHOLD in range(MIN_THRESHOLD_VALUE, MAX_THRESHOLD_VALUE + 1, TH_STEP):
 
                     """ ADDING FEATURES IN ARRAY FOR SAVE IN FILE """
                     listGLCM.append(oGlcm.exportToClassfier("Class " + str(quantity[0])))
-                    print nbits, k, quantity[0], image
+                    print nbits, k, quantity[0], image, THRESHOLD
             listGLCM = np.array(listGLCM)
 
             """ SAVE FILE WITH FEATURES, DECIMATION WITH STEP = k AND CORRELATION MATRIX WITH nbits BITS. """
