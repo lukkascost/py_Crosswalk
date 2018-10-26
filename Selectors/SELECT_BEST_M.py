@@ -2,16 +2,19 @@ import numpy as np
 
 from MachineLearn.Classes.experiment import Experiment
 
-EXPERIMENT_NUMBER = 4
+EXPERIMENT_NUMBER = 6
 ATT_NUMBER = 10
 MIN_DECIMATION = 1
 MAX_DECIMATION = 100
 NUMBER_OF_ROUNDS = 50
 CM_BITS = 8
+TH = 199
 
 oExp = Experiment.load(
-    "../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}b_ATT{}.txt".format(EXPERIMENT_NUMBER, MIN_DECIMATION, MAX_DECIMATION,
-                                                                 NUMBER_OF_ROUNDS, CM_BITS, ATT_NUMBER))
+    "../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, MIN_DECIMATION,
+                                                                             MAX_DECIMATION,
+                                                                             NUMBER_OF_ROUNDS, CM_BITS, CM_BITS, TH, TH,
+                                                                             ATT_NUMBER))
 results = np.zeros((MAX_DECIMATION - MIN_DECIMATION + 1, 3))
 for i, oDataSet in enumerate(oExp.experimentResults):
     metrics = oDataSet.get_general_metrics()
