@@ -7,9 +7,10 @@ gerarTabelas = True
 gerarResultados = True
 PATH_TO_IMAGES_FOLDER = '../../../database-Crosswalk/Original/'
 PATH_TO_SAVE_RESULTS = '../../TIMES/EXP_06/'
-NATT = 24
+NATT = 3
 M_CM = 8
 CM_M = 1
+
 
 def measureTime10(img, bits=6):
     """
@@ -22,7 +23,10 @@ def measureTime10(img, bits=6):
     # basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
 
     """24 atts"""
-    basemask = np.array(range(1, 25))
+    # basemask = np.array(range(1, 25))
+    #
+    """3 Atts """
+    basemask = np.array([7, 12, 22])
 
     basemask = basemask - 1
     times = np.zeros(4)
@@ -62,9 +66,61 @@ def measureTime10(img, bits=6):
     # glcm_atributes[9] *= -1
     #
     """24 Atts"""
-    oGlcm.calculateAttributes()
+    # oGlcm.calculateAttributes()
 
     """3 Atts"""
+    gray = oGlcm.coOccurenceMatrix.shape[0]
+    HXY1 = 0.0
+    HXY2 = 0.0
+    HX = 0.0
+    HY = 0.0
+
+    px = np.zeros(gray)
+    py = np.zeros(gray)
+    px_plus_y = np.zeros(gray * 2 - 1)
+    px_minus_y = np.zeros(gray)
+    for i in range(gray):
+        px[i] = sum(oGlcm.coOccurenceNormalized[i, :])
+        py[i] = sum(oGlcm.coOccurenceNormalized[:, i])
+        for j in range(gray):
+            Pij = oGlcm.coOccurenceNormalized[i, j]
+            px_plus_y[i + j] += oGlcm.coOccurenceNormalized[i, j]
+            px_minus_y[abs(i - j)] += Pij
+            glcm_atributes[9] += Pij * np.log10(Pij + 1e-30)
+            glcm_atributes[22] += Pij * (i - j)
+    glcm_atributes[22] /= 2
+
+    Q = np.zeros((gray, gray))
+    for i in range(gray * 2 - 1):
+        glcm_atributes[8] += px_plus_y[i] * np.log10(px_plus_y[i] + 1e-30)
+    for i in range(gray):
+        HX += px[i] * np.log10(px[i] + 1e-30)
+        HY += py[i] * np.log10(py[i] + 1e-30)
+        for j in range(gray):
+            HXY1 += oGlcm.coOccurenceNormalized[i, j] * np.log10(px[i] * py[j] + 1e-30)
+            HXY2 += px[i] * py[j] * np.log10(px[i] * py[j] + 1e-30)
+            for k in range(gray):
+                Q[i, j] = oGlcm.coOccurenceNormalized[i, k] * oGlcm.coOccurenceNormalized[j, k]
+                if not (Q[i, j] == 0):
+                    Q[i, j] = Q[i, j] / (px[i] * py[k])
+
+    glcm_atributes[8] *= -1
+    glcm_atributes[9] *= -1
+    HXY1 *= -1
+    HXY2 *= -1
+
+    glcm_atributes[12] = glcm_atributes[9] - HXY1
+    m1 = np.amax(HX)
+    m2 = np.amax(HY)
+    if m1 > m2:
+        glcm_atributes[12] /= m1
+    else:
+        glcm_atributes[12] /= m2
+
+    for i in range(gray * 2 - 1):
+        glcm_atributes[7] += pow(i - glcm_atributes[8], 2) * px_plus_y[i]
+    oGlcm.attributes = glcm_atributes[1:]
+
 
     end = tm.time()
     times[2] = end - start
