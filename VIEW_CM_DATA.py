@@ -4,7 +4,7 @@ import numpy as np
 from MachineLearn.Classes.experiment import Experiment
 
 EXPERIMENT_NUMBER = 6
-ATT_NUMBER = 10
+ATT_NUMBER = 3
 DECIMATION = 17
 DECIMATION_MIN = 1
 DECIMATION_MAX = 100
@@ -15,7 +15,7 @@ CM_BIT = 8
 TH_MIN = 199
 TH_MAX = 199
 
-R = 1
+R = 17
 ROUND = 0
 SHOW = True
 
@@ -35,7 +35,7 @@ if SHOW:
         print i
         print "-" * 40
 oData = oDataSetCm.dataSet[ROUND - 1]
-print oData
+print oDataSetCm
 print "Matrix Confusao:"
 print oData.confusion_matrix
 print
