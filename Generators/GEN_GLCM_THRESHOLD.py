@@ -3,18 +3,18 @@ import numpy as np
 
 from MachineLearn.Classes.Extractors.GLCM import GLCM
 
-MIN_BITS = 2
-MAX_BITS = 7
+MIN_BITS = 8
+MAX_BITS = 8
 
-MIN_DECIMATION = 17
-MAX_DECIMATION = 17
+MIN_DECIMATION = 1
+MAX_DECIMATION = 10
 
 MIN_THRESHOLD_VALUE = 199
 MAX_THRESHOLD_VALUE = 199
 TH_STEP = 1
 
-PATH_TO_IMAGES_FOLDER = '../../database-Crosswalk/Original/'
-PATH_TO_SAVE_FEATURES = '../GLCM_FILES/EXP_06/'
+PATH_TO_IMAGES_FOLDER = '../../database-Crosswalk/BLUR_IMAGES/'
+PATH_TO_SAVE_FEATURES = '../GLCM_FILES/EXP_07/'
 for THRESHOLD in range(MIN_THRESHOLD_VALUE, MAX_THRESHOLD_VALUE + 1, TH_STEP):
     for nbits in range(MIN_BITS, MAX_BITS + 1):
         for k in range(MIN_DECIMATION, MAX_DECIMATION + 1):
@@ -42,7 +42,7 @@ for THRESHOLD in range(MIN_THRESHOLD_VALUE, MAX_THRESHOLD_VALUE + 1, TH_STEP):
 
                     """ ADDING FEATURES IN ARRAY FOR SAVE IN FILE """
                     listGLCM.append(oGlcm.exportToClassfier("Class " + str(quantity[0])))
-                    print nbits, k, quantity[0], image, THRESHOLD
+                    print(nbits, k, quantity[0], image, THRESHOLD)
             listGLCM = np.array(listGLCM)
 
             """ SAVE FILE WITH FEATURES, DECIMATION WITH STEP = k AND CORRELATION MATRIX WITH nbits BITS. """
