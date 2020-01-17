@@ -3,8 +3,8 @@ import numpy as np
 
 from MachineLearn.Classes.experiment import Experiment
 
-EXPERIMENT_NUMBER = 6
-ATT_NUMBER = 3
+EXPERIMENT_NUMBER = 7
+ATT_NUMBER = 10
 DECIMATION = 17
 DECIMATION_MIN = 1
 DECIMATION_MAX = 100
@@ -25,26 +25,26 @@ oExp = Experiment.load(
                                                                          NUMBER_OF_ROUNDS, CM_BIT_MIN, CM_BIT_MAX,
                                                                          TH_MIN, TH_MAX,
                                                                          ATT_NUMBER))
-print oExp.show_in_table()
+print (oExp.show_in_table())
 
 if SHOW:
-    print "-" * 40
+    print( "-" * 40)
     oDataSetCm = oExp.experimentResults[R - 1]
     for j, i in enumerate(oDataSetCm.dataSet):
-        print "Rodada ", j + 1
-        print i
-        print "-" * 40
+        print("Rodada ", j + 1)
+        print(i)
+        print("-" * 40)
 oData = oDataSetCm.dataSet[ROUND - 1]
-print oDataSetCm
-print "Matrix Confusao:"
-print oData.confusion_matrix
-print
-print "Valores para Normalizacao(max, min):"
-print oDataSetCm.normalize_between
-print
-print "Indices das amostras de teste(indexado de 0):"
-print oData.Testing_indexes
-print oDataSetCm
+print(oDataSetCm)
+print("Matrix Confusao:")
+print(oData.confusion_matrix)
+print()
+print("Valores para Normalizacao(max, min):")
+print(oDataSetCm.normalize_between)
+print()
+print("Indices das amostras de teste(indexado de 0):")
+print(oData.Testing_indexes)
+print(oDataSetCm)
 # oData.save_model("MODEL_M{}_CM{}_TH{}_ATT{}_ROUND_{}.txt".format(DECIMATION, CM_BIT, TH_MIN, ATT_NUMBER, ROUND))
 # svm = cv2.SVM()
 # indices = [129, 142, 140, 104, 133, 114, 110, 143, 122, 148,
