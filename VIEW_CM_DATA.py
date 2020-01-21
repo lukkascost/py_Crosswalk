@@ -18,13 +18,22 @@ TH_MAX = 199
 R = 17
 ROUND = 0
 SHOW = True
-
-oExp = Experiment.load(
-    "OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, DECIMATION_MIN,
-                                                                         DECIMATION_MAX,
+oExp1 = Experiment.load(
+    "OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, 1,
+                                                                         50,
                                                                          NUMBER_OF_ROUNDS, CM_BIT_MIN, CM_BIT_MAX,
                                                                          TH_MIN, TH_MAX,
                                                                          ATT_NUMBER))
+oExp2 = Experiment.load(
+    "OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, 50,
+                                                                         100,
+                                                                         NUMBER_OF_ROUNDS, CM_BIT_MIN, CM_BIT_MAX,
+                                                                         TH_MIN, TH_MAX,
+                                                                         ATT_NUMBER))
+oExp = Experiment()
+oExp.experimentResults = oExp1.experimentResults[:-1] + oExp2.experimentResults
+oExp.experimentDescription = oExp1.experimentDescription[:-1] + oExp2.experimentDescription
+oExp.length = oExp1.length + oExp2.length -1
 print (oExp.show_in_table())
 
 if SHOW:
