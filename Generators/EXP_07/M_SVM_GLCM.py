@@ -10,14 +10,17 @@ from MachineLearn.Classes.experiment import Experiment
 SAMPLES_PER_CLASS = 150
 PATH_TO_SAVE_FEATURES = '../../GLCM_FILES/EXP_07/'
 NUMBER_OF_ROUNDS = 50
-MIN_DECIMATION = 50
-MAX_DECIMATION = 100
+MIN_DECIMATION = 1
+MAX_DECIMATION = 30
 EXPERIMENT = 7
 NBITS = 8
-NATT = 10
+NATT = 24
 
 oExp = Experiment()
-basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
+# basemask = np.array([1, 2, 5, 9, 15, 16, 17, 21, 22, 23])
+# basemask = np.array([12, 20, 22])
+
+basemask = np.array(range(1, 25))
 svmVectors = []
 basemask = basemask - 1
 
@@ -31,7 +34,7 @@ for M in range(MIN_DECIMATION, MAX_DECIMATION + 1):
     oDataSet.attributes = oDataSet.attributes.astype(float)
     oDataSet.normalize_data_set()
     for j in range(NUMBER_OF_ROUNDS):
-        print (j)
+        print(j)
         oData = Data(4, 50, samples=150)
         oData.random_training_test_per_class()
         svm = ml.SVM_create()
@@ -48,7 +51,7 @@ for M in range(MIN_DECIMATION, MAX_DECIMATION + 1):
             res, cls = svm.predict(np.float32([i]))
             results.append(cls[0])
         oData.set_results_from_classifier(results, oDataSet.labels[oData.Testing_indexes])
-        oData.insert_model(svm)
+        oData.insert_model(svm, path="tmp2.txt")
         oDataSet.append(oData)
     oExp.add_data_set(oDataSet,
                       description="  50 execucoes M={} CM={}b base CROSSWALK arquivos em EXP_{:02d}".format(M, NBITS,
@@ -61,6 +64,8 @@ oExp.save("../../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".f
 ######################
 
 oExp = oExp.load("../../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT, MIN_DECIMATION,
-                                                                                      MAX_DECIMATION, NUMBER_OF_ROUNDS,
-                                                                                      NBITS, NBITS, 199, 199, NATT))
+                                                                                             MAX_DECIMATION,
+                                                                                             NUMBER_OF_ROUNDS,
+                                                                                             NBITS, NBITS, 199, 199,
+                                                                                             NATT))
 print(oExp.show_in_table())

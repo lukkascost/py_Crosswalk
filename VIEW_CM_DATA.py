@@ -37,12 +37,15 @@ oExp.length = oExp1.length + oExp2.length -1
 print (oExp.show_in_table())
 
 if SHOW:
-    print( "-" * 40)
-    oDataSetCm = oExp.experimentResults[R - 1]
-    for j, i in enumerate(oDataSetCm.dataSet):
-        print("Rodada ", j + 1)
+    for j, i in enumerate(oExp.experimentResults):
+        print("-" * 20, j+1 , "-"*20)
         print(i)
-        print("-" * 40)
+    # oDataSetCm = oExp.experimentResults[R - 1]
+    # print(oDataSetCm)
+    # for j, i in enumerate(oDataSetCm.dataSet):
+    #     print("Rodada ", j + 1)
+    #     print(i)
+    #     print("-" * 40)
 oData = oDataSetCm.dataSet[ROUND - 1]
 print(oDataSetCm)
 print("Matrix Confusao:")
