@@ -4,7 +4,7 @@ import numpy as np
 from MachineLearn.Classes.experiment import Experiment
 
 EXPERIMENT_NUMBER = 7
-ATT_NUMBER = 10
+ATT_NUMBER = 24
 DECIMATION = 17
 DECIMATION_MIN = 1
 DECIMATION_MAX = 100

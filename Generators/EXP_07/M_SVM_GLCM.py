@@ -10,8 +10,8 @@ from MachineLearn.Classes.experiment import Experiment
 SAMPLES_PER_CLASS = 150
 PATH_TO_SAVE_FEATURES = '../../GLCM_FILES/EXP_07/'
 NUMBER_OF_ROUNDS = 50
-MIN_DECIMATION = 1
-MAX_DECIMATION = 30
+MIN_DECIMATION = 50
+MAX_DECIMATION = 100
 EXPERIMENT = 7
 NBITS = 8
 NATT = 24
@@ -51,13 +51,13 @@ for M in range(MIN_DECIMATION, MAX_DECIMATION + 1):
             res, cls = svm.predict(np.float32([i]))
             results.append(cls[0])
         oData.set_results_from_classifier(results, oDataSet.labels[oData.Testing_indexes])
-        oData.insert_model(svm, path="tmp2.txt")
+        oData.insert_model(svm)
         oDataSet.append(oData)
     oExp.add_data_set(oDataSet,
                       description="  50 execucoes M={} CM={}b base CROSSWALK arquivos em EXP_{:02d}".format(M, NBITS,
                                                                                                             EXPERIMENT))
     print(oDataSet)
-oExp.save("../../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT, MIN_DECIMATION,
+    oExp.save("../../OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT, MIN_DECIMATION,
                                                                                       MAX_DECIMATION, NUMBER_OF_ROUNDS,
                                                                                       NBITS, NBITS, 199, 199, NATT))
 
