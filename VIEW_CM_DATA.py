@@ -3,11 +3,11 @@ import numpy as np
 
 from MachineLearn.Classes.experiment import Experiment
 
-EXPERIMENT_NUMBER = 7
+EXPERIMENT_NUMBER = 6
 ATT_NUMBER = 24
 DECIMATION = 17
 DECIMATION_MIN = 1
-DECIMATION_MAX = 100
+DECIMATION_MAX = 1
 NUMBER_OF_ROUNDS = 50
 CM_BIT_MIN = 8
 CM_BIT_MAX = 8
@@ -18,22 +18,22 @@ TH_MAX = 199
 R = 17
 ROUND = 0
 SHOW = True
-oExp1 = Experiment.load(
-    "OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, 1,
-                                                                         50,
+oExp = Experiment.load(
+    "OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, DECIMATION_MIN,
+                                                                         DECIMATION_MAX,
                                                                          NUMBER_OF_ROUNDS, CM_BIT_MIN, CM_BIT_MAX,
                                                                          TH_MIN, TH_MAX,
                                                                          ATT_NUMBER))
-oExp2 = Experiment.load(
-    "OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, 50,
-                                                                         100,
-                                                                         NUMBER_OF_ROUNDS, CM_BIT_MIN, CM_BIT_MAX,
-                                                                         TH_MIN, TH_MAX,
-                                                                         ATT_NUMBER))
-oExp = Experiment()
-oExp.experimentResults = oExp1.experimentResults[:-1] + oExp2.experimentResults
-oExp.experimentDescription = oExp1.experimentDescription[:-1] + oExp2.experimentDescription
-oExp.length = oExp1.length + oExp2.length -1
+# oExp2 = Experiment.load(
+#     "OBJECTS/EXP_{:02d}/ACC_M{}-{}_{}_CM{}-{}b_TH{}-{}_ATT{}.gzip".format(EXPERIMENT_NUMBER, 50,
+#                                                                          100,
+#                                                                          NUMBER_OF_ROUNDS, CM_BIT_MIN, CM_BIT_MAX,
+#                                                                          TH_MIN, TH_MAX,
+#                                                                          ATT_NUMBER))
+# oExp = Experiment()
+# oExp.experimentResults = oExp1.experimentResults[:-1] + oExp2.experimentResults
+# oExp.experimentDescription = oExp1.experimentDescription[:-1] + oExp2.experimentDescription
+# oExp.length = oExp1.length + oExp2.length -1
 print (oExp.show_in_table())
 
 if SHOW:
